@@ -5,6 +5,7 @@
 package com.lunatech.goldenalgo.onboarding
 
 import akka.actor.ActorSystem
+
 import scala.concurrent.ExecutionContext
 
 object Main {
