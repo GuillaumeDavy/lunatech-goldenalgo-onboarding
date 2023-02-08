@@ -28,6 +28,7 @@ lazy val client = (project in file("client"))
     ((fastOptJS / moduleName).value + "-opt.js"))
   )
 
+val elastic4sVersion = "8.5.3"
 lazy val server = (project in file("server"))
   .settings(commonSettings)
   .settings(
@@ -38,7 +39,8 @@ lazy val server = (project in file("server"))
       "com.typesafe.akka" %% "akka-actor-typed" % "2.6.15",
       "io.circe"          %% "circe-core"       % "0.13.0",
       "io.circe"          %% "circe-generic"    % "0.13.0",
-      "io.circe"          %% "circe-parser"     % "0.13.0"
+      "io.circe"          %% "circe-parser"     % "0.13.0",
+      "com.sksamuel.elastic4s" %% "elastic4s-client-esjava" % elastic4sVersion,
     )
   )
 
