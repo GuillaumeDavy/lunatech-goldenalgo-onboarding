@@ -7,6 +7,10 @@ lazy val commonSettings = Seq(
   )
 )
 
+val elastic4sVersion    = "8.5.3"
+val circeVersion        = "0.13.0"
+val scalajsReactVersion = "1.7.7"
+
 lazy val client = (project in file("client"))
   .enablePlugins(ScalaJSBundlerPlugin)
   .settings(commonSettings)
@@ -16,11 +20,11 @@ lazy val client = (project in file("client"))
       "org.scala-js"                      %%% "scalajs-dom"   % "1.0.0",
       "io.suzaku"                         %%% "diode-core"    % "1.1.13",
       "io.suzaku"                         %%% "diode-react"   % "1.1.13",
-      "io.circe"                          %%% "circe-core"    % "0.13.0",
-      "io.circe"                          %%% "circe-generic" % "0.13.0",
-      "io.circe"                          %%% "circe-parser"  % "0.13.0",
-      "com.github.japgolly.scalajs-react" %%% "core"          % "1.7.7",
-      "com.github.japgolly.scalajs-react" %%% "extra"         % "1.7.7"
+      "io.circe"                          %%% "circe-core"    % circeVersion,
+      "io.circe"                          %%% "circe-generic" % circeVersion,
+      "io.circe"                          %%% "circe-parser"  % circeVersion,
+      "com.github.japgolly.scalajs-react" %%% "core"          % scalajsReactVersion,
+      "com.github.japgolly.scalajs-react" %%% "extra"         % scalajsReactVersion
     ),
     Compile / npmDependencies ++= Seq("react" -> "16.13.1", "react-dom" -> "16.13.1"),
     (fastOptJS / webpackBundlingMode) := BundlingMode.LibraryAndApplication(),
@@ -28,19 +32,18 @@ lazy val client = (project in file("client"))
     ((fastOptJS / moduleName).value + "-opt.js"))
   )
 
-val elastic4sVersion = "8.5.3"
 lazy val server = (project in file("server"))
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-http"        % "10.2.4",
-      "de.heikoseeberger" %% "akka-http-circe"  % "1.36.0",
-      "com.typesafe.akka" %% "akka-stream"      % "2.6.15",
-      "com.typesafe.akka" %% "akka-actor-typed" % "2.6.15",
-      "io.circe"          %% "circe-core"       % "0.13.0",
-      "io.circe"          %% "circe-generic"    % "0.13.0",
-      "io.circe"          %% "circe-parser"     % "0.13.0",
-      "com.sksamuel.elastic4s" %% "elastic4s-client-esjava" % elastic4sVersion,
+      "com.typesafe.akka"        %% "akka-http"               % "10.2.4",
+      "de.heikoseeberger"        %% "akka-http-circe"         % "1.36.0",
+      "com.typesafe.akka"        %% "akka-stream"             % "2.6.15",
+      "com.typesafe.akka"        %% "akka-actor-typed"        % "2.6.15",
+      "io.circe"                 %% "circe-core"              % circeVersion,
+      "io.circe"                 %% "circe-generic"           % circeVersion,
+      "io.circe"                 %% "circe-parser"            % circeVersion,
+      "com.sksamuel.elastic4s"   %% "elastic4s-client-esjava" % elastic4sVersion,
     )
   )
 
