@@ -7,8 +7,6 @@ lazy val commonSettings = Seq(
   )
 )
 
-val elastic4sVersion    = "8.5.3"
-val circeVersion        = "0.13.0"
 val scalajsReactVersion = "1.7.7"
 
 lazy val client = (project in file("client"))
@@ -32,14 +30,20 @@ lazy val client = (project in file("client"))
     ((fastOptJS / moduleName).value + "-opt.js"))
   )
 
+val akkaVersion         = "2.7.0"
+val elastic4sVersion    = "8.5.3"
+val circeVersion        = "0.14.4"
+
 lazy val server = (project in file("server"))
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.typesafe.akka"        %% "akka-http"               % "10.2.4",
-      "de.heikoseeberger"        %% "akka-http-circe"         % "1.36.0",
-      "com.typesafe.akka"        %% "akka-stream"             % "2.6.15",
-      "com.typesafe.akka"        %% "akka-actor-typed"        % "2.6.15",
+      "com.typesafe.akka"        %% "akka-http"               % "10.4.0",
+      "de.heikoseeberger"        %% "akka-http-circe"         % "1.39.2",
+      "com.typesafe.akka"        %% "akka-stream"             % akkaVersion,
+      "com.typesafe.akka"        %% "akka-actor-typed"        % akkaVersion,
+      "com.typesafe.akka"        %% "akka-slf4j"              % akkaVersion,
+      "ch.qos.logback"           % "logback-classic"          % "1.4.5",
       "io.circe"                 %% "circe-core"              % circeVersion,
       "io.circe"                 %% "circe-generic"           % circeVersion,
       "io.circe"                 %% "circe-parser"            % circeVersion,

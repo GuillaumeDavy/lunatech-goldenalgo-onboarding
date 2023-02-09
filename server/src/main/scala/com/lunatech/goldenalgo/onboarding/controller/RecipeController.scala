@@ -8,10 +8,12 @@ import com.lunatech.goldenalgo.onboarding.model.Recipe
 import com.lunatech.goldenalgo.onboarding.service.RecipeService
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
 import io.circe.syntax._
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.concurrent.ExecutionContext //For unmarshalling from JSON to Entity
 
 class RecipeController()(implicit val ec: ExecutionContext) {
+  private var logger: Logger = LoggerFactory.getLogger(classOf[RecipeController])
   private val recipeService = new RecipeService
 
   val recipes: Route = concat(
@@ -19,6 +21,7 @@ class RecipeController()(implicit val ec: ExecutionContext) {
       concat(
         parameter("search".as[String]) {
           keyword =>
+            logger.info(s"GET recipes with attributes keyword=${keyword}")
             respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {
               recipeService.getRecipesMatchingKeyword(keyword) match {
                 case Nil => complete(HttpResponse(StatusCodes.BadRequest, entity=s"No recipe found for keyword=${keyword}"))
@@ -27,12 +30,14 @@ class RecipeController()(implicit val ec: ExecutionContext) {
             }
         },
         get {
+          logger.info("GET all recipe called")
           respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {
             complete(HttpEntity(ContentTypes.`application/json`, recipeService.getAllRecipes.asJson.noSpaces))
           }
         },
         post {
           entity(as[Recipe]) { recipe: Recipe =>
+            logger.info(s"Post recipe=${recipe}")
             respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {
               complete(HttpEntity(ContentTypes.`application/json`, recipeService.addRecipe(recipe).asJson.noSpaces))
             }
