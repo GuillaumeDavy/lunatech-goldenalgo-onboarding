@@ -31,16 +31,13 @@ class RecipeController()(implicit val ec: ExecutionContext) {
       concat(
         pathPrefix("recipes") {
           concat(
-            //        parameter("search".as[String]) {
-            //          keyword =>
-            //            logger.info(s"GET recipes with attributes keyword=${keyword}")
-            //            respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {
-            //              recipeService.getRecipesMatchingKeyword(keyword) match {
-            //                case Nil => complete(HttpResponse(StatusCodes.BadRequest, entity=s"No recipe found for keyword=${keyword}"))
-            //                case myList @ _ => complete(HttpEntity(ContentTypes.`application/json`, myList.asJson.noSpaces))
-            //              }
-            //            }
-            //        },
+            parameter("search".as[String]) {
+              keyword =>
+                logger.info(s"GET recipes with attributes keyword=${keyword}")
+                respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {
+                  onSuccess(recipeService.getRecipesMatchingKeyword(keyword))(recipes => complete(HttpEntity(ContentTypes.`application/json`, recipes.asJson.noSpaces)))
+                }
+            },
             get {
               logger.info("GET all recipe called")
               respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {

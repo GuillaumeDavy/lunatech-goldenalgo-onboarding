@@ -5,10 +5,8 @@ import com.lunatech.goldenalgo.onboarding.model.Recipe
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s._
 import com.sksamuel.elastic4s.http.JavaClient
-import com.sksamuel.elastic4s.requests.searches.SearchResponse
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Success}
 
 class RecipeRepository()(implicit val ec: ExecutionContext) {
   //Connect to elasticSearch
@@ -17,9 +15,8 @@ class RecipeRepository()(implicit val ec: ExecutionContext) {
   elasticClient.execute(createIndex("recipes"))
 
   def getAllRecipes: Future[IndexedSeq[Recipe]] = elasticClient
-    .execute(search("recipes"))
+    .execute(search("recipes").matchAllQuery())
     .map(response => response.result.to[Recipe])
-
 
   def upsertRecipe(recipe: Recipe): Future[String] = elasticClient
     .execute(
@@ -27,7 +24,10 @@ class RecipeRepository()(implicit val ec: ExecutionContext) {
         .id(recipe.id)
         .doc(recipe)
     ).map(response => response.result.id)
-  //TODO: elasticSearch requests
-//  def getRecipesMatchingKeyword(keyword: String): Seq[Recipe] = recipes.filter(recipe => recipe.id.equals(keyword) || recipe.name.equals(keyword) || recipe.ingredients.contains(keyword) || recipe.instructions.contains(keyword))
 
+  def getRecipesMatchingKeyword(keyword: String): Future[IndexedSeq[Recipe]] = elasticClient
+    .execute(
+      search("recipes")
+        .matchQuery("ingredients", keyword)
+    ).map(response => response.result.to[Recipe])
 }

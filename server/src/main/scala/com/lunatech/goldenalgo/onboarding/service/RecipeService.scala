@@ -9,5 +9,5 @@ class RecipeService()(implicit val ec: ExecutionContext) {
   private val recipeRepository = new RecipeRepository
   def getAllRecipes: Future[IndexedSeq[Recipe]] = recipeRepository.getAllRecipes
   def upsertRecipe(recipe: Recipe): Future[String] = recipeRepository.upsertRecipe(recipe)
-//  def getRecipesMatchingKeyword(keyword: String): Seq[Recipe] = recipeRepository.getRecipesMatchingKeyword(keyword)
+  def getRecipesMatchingKeyword(keyword: String): Future[IndexedSeq[Recipe]] = recipeRepository.getRecipesMatchingKeyword(keyword)
 }
