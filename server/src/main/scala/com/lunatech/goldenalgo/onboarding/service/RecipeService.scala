@@ -1,12 +1,13 @@
 package com.lunatech.goldenalgo.onboarding.service
 
-import com.lunatech.goldenalgo.onboarding.dto.RecipeDTO
 import com.lunatech.goldenalgo.onboarding.model.Recipe
+import com.lunatech.goldenalgo.onboarding.repository.RecipeRepository
 
-class RecipeService {
-  val recipeDto = new RecipeDTO
+import scala.concurrent.{ExecutionContext, Future}
 
-  def getAllRecipes: Seq[Recipe] = recipeDto.getAllRecipes
-  def getRecipesMatchingKeyword(keyword: String): Seq[Recipe] = recipeDto.getRecipesMatchingKeyword(keyword)
-  def addRecipe(recipe: Recipe): Seq[Recipe] = recipeDto.addRecipe(recipe)
+class RecipeService()(implicit val ec: ExecutionContext) {
+  private val recipeRepository = new RecipeRepository
+  def getAllRecipes: Future[IndexedSeq[Recipe]] = recipeRepository.getAllRecipes
+  def upsertRecipe(recipe: Recipe): Future[String] = recipeRepository.upsertRecipe(recipe)
+//  def getRecipesMatchingKeyword(keyword: String): Seq[Recipe] = recipeRepository.getRecipesMatchingKeyword(keyword)
 }

@@ -15,7 +15,7 @@ object Main {
     implicit val system: ActorSystem  = ActorSystem("main-system")
     implicit val ec: ExecutionContext = system.dispatcher
 
-    val recipeController = new RecipeController()
+    val recipeController = new RecipeController
 
     new WebServer(recipeController)
       .bind()
