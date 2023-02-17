@@ -1,7 +1,8 @@
 package com.lunatech.goldenalgo.onboarding
 
-import japgolly.scalajs.react.vdom.html_<^._
+import com.lunatech.goldenalgo.onboarding.component.Home
 import japgolly.scalajs.react.extra.router._
+import japgolly.scalajs.react.vdom.html_<^._
 
 object AppRouter {
 

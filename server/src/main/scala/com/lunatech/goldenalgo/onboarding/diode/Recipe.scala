@@ -1,4 +1,4 @@
-package com.lunatech.goldenalgo.onboarding.model
+package com.lunatech.goldenalgo.onboarding.diode
 
 import com.sksamuel.elastic4s.{Hit, HitReader, Indexable}
 import io.circe._

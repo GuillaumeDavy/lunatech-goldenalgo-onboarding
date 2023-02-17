@@ -1,9 +1,8 @@
 package com.lunatech.goldenalgo.onboarding
 
-import scala.scalajs.js.annotation.JSExport
 import org.scalajs.dom
-import org.scalajs.dom._
-import japgolly.scalajs.react.vdom.html_<^._
+
+import scala.scalajs.js.annotation.JSExport
 
 object App {
 

@@ -1,6 +1,6 @@
 package com.lunatech.goldenalgo.onboarding.service
 
-import com.lunatech.goldenalgo.onboarding.model.Recipe
+import com.lunatech.goldenalgo.onboarding.diode.Recipe
 import com.lunatech.goldenalgo.onboarding.repository.RecipeRepository
 
 import scala.concurrent.{ExecutionContext, Future}

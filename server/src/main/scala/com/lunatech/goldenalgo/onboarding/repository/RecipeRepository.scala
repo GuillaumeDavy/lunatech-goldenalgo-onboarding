@@ -1,7 +1,7 @@
 package com.lunatech.goldenalgo.onboarding.repository
 
-import com.lunatech.goldenalgo.onboarding.model.MyImplicit.{RecipeHitReader, RecipeIndexable}
-import com.lunatech.goldenalgo.onboarding.model.Recipe
+import com.lunatech.goldenalgo.onboarding.diode.MyImplicit.{RecipeHitReader, RecipeIndexable}
+import com.lunatech.goldenalgo.onboarding.diode.Recipe
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s._
 import com.sksamuel.elastic4s.http.JavaClient

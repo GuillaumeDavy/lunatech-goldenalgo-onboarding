@@ -5,7 +5,7 @@ import akka.http.scaladsl.model._
 import akka.http.scaladsl.model.headers.RawHeader
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{ExceptionHandler, Route}
-import com.lunatech.goldenalgo.onboarding.model.Recipe
+import com.lunatech.goldenalgo.onboarding.diode.Recipe
 import com.lunatech.goldenalgo.onboarding.service.RecipeService
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
 import io.circe.syntax._
