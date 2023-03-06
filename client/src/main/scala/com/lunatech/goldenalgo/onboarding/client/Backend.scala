@@ -12,8 +12,15 @@ object Backend {
 
   private val baseUrl = "http://localhost:8080"
   def fetchRecipes(): Future[Seq[Recipe]] = {
-    println("Call backend")
     Ajax.get(s"$baseUrl/recipes")
+      .map(xhr => decode[Seq[Recipe]](xhr.responseText).fold(
+        _ => Seq.empty,
+        recipes => recipes
+      ))
+  }
+
+  def fetchRecipesByWord(word: String): Future[Seq[Recipe]] = {
+    Ajax.get(s"$baseUrl/recipes/?search=$word")
       .map(xhr => decode[Seq[Recipe]](xhr.responseText).fold(
         _ => Seq.empty,
         recipes => recipes

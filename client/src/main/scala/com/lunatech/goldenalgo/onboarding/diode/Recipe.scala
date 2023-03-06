@@ -28,6 +28,12 @@ object AppCircuit extends Circuit[Seq[Recipe]] with ReactConnector[Seq[Recipe]]{
           model,
           Effect(Backend.fetchRecipes().map(recipes => ModifyStateAction(recipes))) // Effect that trigger ModifyStateAction
         ))
+      case SearchRecipeAction(word) =>
+        println("SearchRecipe called with word=" + word)
+        Some(ModelUpdateEffect(
+          model,
+          Effect(Backend.fetchRecipesByWord(word).map(recipes => ModifyStateAction(recipes))) // Effect that trigger ModifyStateAction
+        ))
       case ModifyStateAction(recipes) =>
         println("ModifyStateAction called")
         Some(ModelUpdate(recipes))
@@ -45,6 +51,7 @@ object AppCircuit extends Circuit[Seq[Recipe]] with ReactConnector[Seq[Recipe]]{
 
 // ACTIONS
 case object GetAllRecipesAction extends Action
+case class SearchRecipeAction(word: String) extends Action
 case class ModifyStateAction(recipes: Seq[Recipe]) extends Action
 case object ResetAction extends Action
 case object PrintStateAction extends Action
