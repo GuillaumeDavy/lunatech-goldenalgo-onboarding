@@ -11,6 +11,10 @@ object RecipeComponent {
   val recipeComponent = ScalaComponent.builder[RecipeComponentProps]
     .render_P { props =>
       <.div(
+        ^.marginBottom := "10px",
+        ^.padding := "10px",
+        ^.border := "1px solid black",
+        ^.borderRadius := "5px",
         <.h1(props.recipe.name),
         <.h3("Ingredients"),
         <.div(displayElements(props.recipe.ingredients)),
@@ -24,8 +28,8 @@ object RecipeComponent {
     if (elements.isEmpty) {
       <.p("No element to display")
     } else {
-      elements.map(element => <.p(element)).toTagMod
+      <.ol
+        elements.map(element => <.li(element)).toTagMod
     }
   }
-
 }
