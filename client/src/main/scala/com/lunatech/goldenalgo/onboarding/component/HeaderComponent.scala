@@ -10,11 +10,21 @@ object HeaderComponent {
     .render_P {_ =>
       <.div(
         <.h1("Recipes"),
-        <.input.text(
-          ^.width := "50%",
-          ^.placeholder := "Search ingredient",
-          ^.onChange ==> onTextChange
-        ),
+        <.div (
+          ^.display.flex,
+          ^.flexDirection.row,
+          <.input.text(
+            ^.width := "50%",
+            ^.placeholder := "Search ingredient",
+            ^.marginRight := "10px",
+            ^.onChange ==> onTextChange
+          ),
+          <.button(
+            "+",
+            ^.borderRadius := "50px",
+            ^.onClick --> Callback(onClick)
+          )
+        )
       )
     }
     .build
@@ -25,5 +35,10 @@ object HeaderComponent {
       Callback(AppCircuit.dispatch(GetAllRecipesAction))
     else
       Callback(AppCircuit.dispatch(SearchRecipeAction(value)))
+  }
+
+  private def onClick = {
+    //open modal with form
+    println("Add recipe")
   }
 }

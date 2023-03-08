@@ -35,8 +35,11 @@ object Home {
   private def displayRecipes(recipes: Seq[Recipe]): TagMod =
     if(recipes.isEmpty)
       <.p("No recipe to display")
-    else
-      recipes.map(recipe => recipeComponent(RecipeComponentProps(recipe))).toTagMod
+    else {
+      <.div(
+        recipes.map(recipe => recipeComponent(RecipeComponentProps(recipe))).toTagMod
+      )
+    }
 
   def apply(ctl: RouterCtl[AppRouter.Page]): VdomElement = sc(modelProxy => component(Props(ctl, modelProxy)))
 }

@@ -11,7 +11,7 @@ object RecipeComponent {
   val recipeComponent = ScalaComponent.builder[RecipeComponentProps]
     .render_P { props =>
       <.div(
-        ^.marginBottom := "10px",
+        ^.margin := "10px",
         ^.padding := "10px",
         ^.border := "1px solid black",
         ^.borderRadius := "5px",
